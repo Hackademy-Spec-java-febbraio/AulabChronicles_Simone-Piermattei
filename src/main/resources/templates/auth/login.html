@@ -1,0 +1,55 @@
+<!doctype html>
+<html xmlns="http://thymeleaf.org" lang="en">
+
+<head th:insert="~{index::head}"></head>
+
+<body>
+
+    <head th:insert="~{index::navabar}"></head>
+
+    <div class="vh-100"></div>
+    <br /><br />
+    <article class="container">
+        <section class="row">
+            <div class="col-md-6 offset-md-3">
+                <div th:if="${param.error}">
+                    <div class="alert alert-danger">Invalid Email or Password</div>
+                </div>
+                <div th:if="${param.logout}">
+                    <div class="alert alert-success">You have been logged out.</div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="text-center">Login Form</h2>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" role="form" th:action="@{/login}" class="form-horizontal">">
+                            <div class="form-group mb-3">
+                                <label class="control-label">Email</label>
+                                <input type="text" class="form-control" id="username" name="username"
+                                    placeholder="Enter email address" />
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="control-label">Password</label>
+                                <input type="password" class="form-control" id="password" name="password"
+                                    placeholder="Enter email address" />
+                            </div>
+                            <div class="form-group mb-3">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <span> Not registered?
+                                    <a th:href="@{/register}">Register/Signup here</a>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </article>
+
+    <head th:insert="~{index::footer}"></head>
+    <script th:replace="~{index::bootstrapScript}"></script>
+
+</body>
+
+</html>
