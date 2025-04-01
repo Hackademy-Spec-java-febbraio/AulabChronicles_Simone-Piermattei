@@ -1,12 +1,15 @@
+// *Questa classe contiene tutti i metodi che indicano se un utente è attivo in piattaforma poiché indicano se l’account non è scaduto, se le credenziali non sono scadute, se l’account non è bloccato e se è abilitato.
+
+
 package it.aulab.aulabchronicles.services;
 
 import java.util.Collection;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+
+
 
 @AllArgsConstructor
 @NoArgsConstructor
