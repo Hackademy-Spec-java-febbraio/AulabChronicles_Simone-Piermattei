@@ -1,14 +1,12 @@
 <!doctype html>
-<html xmlns="http://thymeleaf.org" lang="en">
+<html xmlns:th="http://thymeleaf.org" lang="en">
 
 <head th:insert="~{index::head}"></head>
 
 <body>
 
-    <head th:insert="~{index::navabar}"></head>
+    <div th:insert="~{index::navbar}"></div>
 
-    <div class="vh-100"></div>
-    <br /><br /><br />
     <article class="container">
         <section class="row">
             <div class="col-md-8 offset-md-2">
@@ -62,7 +60,7 @@
         </section>
     </article>
 
-    <head th:insert="~{index::footer}"></head>
+    <div th:insert="~{index::footer}"></div>
     <script th:replace="~{index::bootstrapScript}"></script>
 
 </body>

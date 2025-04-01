@@ -1,13 +1,13 @@
 <!doctype html>
-<html xmlns="http://thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head th:insert="~{index::head}"></head>
 
 <body>
 
-    <head th:insert="~{index::navabar}"></head>
+    <div th:insert="~{index::navbar}"></div>
 
-    <div class="vh-100"></div>
+    <!-- <div class="vh-100"></div> -->
     <br /><br />
     <article class="container">
         <section class="row">
@@ -23,7 +23,7 @@
                         <h2 class="text-center">Login Form</h2>
                     </div>
                     <div class="card-body">
-                        <form method="post" role="form" th:action="@{/login}" class="form-horizontal">">
+                        <form method="post" th:action="@{/login}" class="form-horizontal">
                             <div class="form-group mb-3">
                                 <label class="control-label">Email</label>
                                 <input type="text" class="form-control" id="username" name="username"
@@ -32,7 +32,7 @@
                             <div class="form-group mb-3">
                                 <label class="control-label">Password</label>
                                 <input type="password" class="form-control" id="password" name="password"
-                                    placeholder="Enter email address" />
+                                    placeholder="Enter password" />
                             </div>
                             <div class="form-group mb-3">
                                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -47,7 +47,7 @@
         </section>
     </article>
 
-    <head th:insert="~{index::footer}"></head>
+    <div th:insert="~{index::footer}"></div>
     <script th:replace="~{index::bootstrapScript}"></script>
 
 </body>

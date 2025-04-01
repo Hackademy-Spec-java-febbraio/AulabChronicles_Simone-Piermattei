@@ -1,5 +1,5 @@
 <!doctype html>
-<html xmlns="http://thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 
 <!-- * Inizio Head -->
@@ -22,7 +22,7 @@
 
     <!--* Inizio NAVBAR -->
 
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav th:fragment="navbar" class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
 
             <a class="navbar-brand" href="#">Aulab Chronicles</a>
@@ -68,7 +68,7 @@
 
     <!--* Inizio FOOTER -->
 
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+    <footer th:fragment="footer" class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
         <div class="container">
 
             <!-- Company Info -->
@@ -102,7 +102,7 @@
 
     <!--* Script Bootstrap -->
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    <script th:fragment="bootstrapScript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
 </body>
