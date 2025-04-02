@@ -54,8 +54,10 @@
                             <li><a class="dropdown-item" href="#" aria-current="page">Logout</a></li>
                         </ul>
                     </li>
-
                 </ul>
+                <div sec:authorize="isAuthenticated" th:text="'Benvenuto: ' + ${#authentication.principal.fullname} + ' - ' + ${#authentication.principal.authorities[0].authority.replace('ROLE_', '')}">
+                    Benvenuto
+                </div>
                 <form class="d-flex" role="search">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
