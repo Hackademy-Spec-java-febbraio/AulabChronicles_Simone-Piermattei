@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS articles(
     title VARCHAR(100),
     subtitle VARCHAR(100),
     body TEXT,
-    publish_dat DATE,
+    publish_date DATE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     user_id BIGINT,
     category_id BIGINT,

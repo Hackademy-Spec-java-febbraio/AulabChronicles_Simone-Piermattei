@@ -2,16 +2,22 @@
 <html xmlns:th="http://thymeleaf.org" lang="en">
 <!-- * Inizio Head -->
 
+<head th:insert="~{index::head}"></head>
+<!-- * Fine head -->
 
 <body>
 
     <div th:insert="~{index::navbar}"></div>
 
-<div th:if="${param.notAuthorized}">
-    <div class="alert alert-danger">
-        Not authorized!
+    <div th:if="${param.notAuthorized}">
+        <div class="alert alert-danger">
+            Not authorized!
+        </div>
     </div>
-</div>
+
+    <div th:if="${successMessage}" class="alert alert-success">
+        <p th:text="${successMessage}"></p>
+    </div>
 
     <article class="container-fluid">
         <section class="row ms-5 vh-100 align-items-center">
