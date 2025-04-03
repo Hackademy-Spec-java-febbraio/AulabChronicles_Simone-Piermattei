@@ -1,5 +1,5 @@
-DROP TABLE user_roles;
-DROP TABLE articles;
-DROP TABLE categories;
-DROP TABLE roles;
-DROP TABLE users;
+DROP TABLE IF EXISTS users_roles;
+DROP TABLE IF EXISTS articles;
+DROP TABLE IF EXISTS categories;
+DROP TABLE IF EXISTS roles;
+DROP TABLE IF EXISTS users;

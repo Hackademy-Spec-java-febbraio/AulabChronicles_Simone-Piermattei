@@ -1,4 +1,4 @@
-INSERT INTO user (username, email, password, created_at) VALUES
+INSERT INTO users (username, email, password, created_at) VALUES
 ('admin', 'admin@aulab.it', '25f9e794323b453885f5181f1b624d0b');
 
 
@@ -10,7 +10,7 @@ INSERT INTO roles (name) VALUES
 ('ROLE_USER');
 
 
-INSERT INTO user_roles (user_id, role_id) values 
+INSERT INTO users_roles (user_id, role_id) values 
 (1,1);
 
 
