@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import it.aulab.aulabchronicles.dtos.CategoryDto;
 import it.aulab.aulabchronicles.models.Category;
 import it.aulab.aulabchronicles.repositories.CategoryRepository;
-import lombok.NoArgsConstructor;
+
 
 @Service
 public class CategoryService implements CrudService<CategoryDto, Category, Long> {

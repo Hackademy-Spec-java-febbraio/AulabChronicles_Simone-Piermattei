@@ -11,20 +11,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import it.aulab.aulabchronicles.dtos.ArticleDto;
 import it.aulab.aulabchronicles.dtos.CategoryDto;
 import it.aulab.aulabchronicles.models.Article;
 import it.aulab.aulabchronicles.models.Category;
 import it.aulab.aulabchronicles.services.ArticleService;
-import it.aulab.aulabchronicles.services.CategoryService;
 import it.aulab.aulabchronicles.services.CrudService;
 import jakarta.validation.Valid;
 
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 @RequestMapping("/articles")

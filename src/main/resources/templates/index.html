@@ -25,7 +25,7 @@
     <nav th:fragment="navbar" class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
 
-            <a class="navbar-brand" href="#">Aulab Chronicles</a>
+            <a class="navbar-brand" th:href="@{/}">Aulab Chronicles</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -36,7 +36,7 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                     <li sec:authorize="isAuthenticated" class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Crea Articolo</a>
+                        <a class="nav-link active" aria-current="page" th:href="@{/articles/create}">Crea Articolo</a>
                     </li>
 
                     <li class="nav-item">
@@ -66,9 +66,9 @@
                 <!-- <span>Accedi per visualizzare il tuo nome.</span> O un link per accedere -->
                 <!-- </div> -->
                 
-                <span th:if="${#authorization.expression('isAuthenticated()')}"
+                <!-- <span th:if="${#authorization.expression('isAuthenticated()')}"
                     th:text="${#authentication.principal.fullname}"></span>
-                <span th:unless="${#authorization.expression('isAuthenticated()')}">Utente non autenticato</span>
+                <span th:unless="${#authorization.expression('isAuthenticated()')}">Utente non autenticato</span> -->
 
                 <div th:if="${#authorization.expression('isAuthenticated()')}"
                     th:text="'Benvenuto: ' + ${#authentication.principal.fullname} + ' - ' + ${#authentication.principal.authorities[0].authority.replace('ROLE_', '')}">
