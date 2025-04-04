@@ -40,7 +40,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
+                        <a class="nav-link" href="/articles">Tutti gli articoli</a>
                     </li>
 
                     <li class="nav-item dropdown">
@@ -58,17 +58,6 @@
                     </li>
                 </ul>
 
-                <!-- <div th:if="${#authentication != null}"> -->
-                <!-- <span -->
-                <!-- th:text="'Benvenuto: ' + (${#authentication.principal.fullname} ?: 'Ospite') + ' - ' + (${#authentication.principal.authorities[0].authority} ?: '')?.replace('ROLE_', '')"></span> -->
-                <!-- </div> -->
-                <!-- <div th:unless="${#authentication != null}"> -->
-                <!-- <span>Accedi per visualizzare il tuo nome.</span> O un link per accedere -->
-                <!-- </div> -->
-                
-                <!-- <span th:if="${#authorization.expression('isAuthenticated()')}"
-                    th:text="${#authentication.principal.fullname}"></span>
-                <span th:unless="${#authorization.expression('isAuthenticated()')}">Utente non autenticato</span> -->
 
                 <div th:if="${#authorization.expression('isAuthenticated()')}"
                     th:text="'Benvenuto: ' + ${#authentication.principal.fullname} + ' - ' + ${#authentication.principal.authorities[0].authority.replace('ROLE_', '')}">
