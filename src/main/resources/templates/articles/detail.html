@@ -59,7 +59,7 @@
                     <div class=" text-muted my-3">
                         <p>Redatto il</p>
                         <p th:text="${article.publishDate}">data</p> da
-                        <a href="" class="text-muted">
+                        <a th:href="@{/search/{id}(id=${article.user.id})}" class="text-muted">
                             <span th:text="${article.user.username}">Autore<span />
                         </a>
 

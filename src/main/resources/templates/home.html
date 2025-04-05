@@ -27,6 +27,39 @@
         </section>
     </article>
 
+    <article class="container" th:if="${articles.size() > 0}">
+        <section class="row justify-contnt-center">
+            <div class="col-10 mb-5">
+                <h1 class="text-center">Gli ultimi articoli</h1>
+            </div>
+        </section>
+
+        <section class="row justify-content-center mb-5">
+
+
+            <div th:each="article : ${articles}" class="col-12 col-md-4 d-flex justify-content-center">
+
+                <div class="card mb-3" style="width: 18rem;">
+                    <img th:if="${article.image != null}" th:src="${article.image.path}" class="card-img-top" alt="...">
+                    <img th:unless="${article.image != null}" th:src="@{/images/default.jpg}" class="card-img-top"
+                        alt="">
+
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${article.title}"></h5>
+                        <p class="card-text" th:text="${article.subtitle}"></p>
+                        <p class="card-text" th:text="${article.user.username}"></p>
+
+                        <a th:href="@{/articles/detail/{id}(id=${article.id})}" class="btn btn-primary">Leggi
+                            articolo</a>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </article>
+
+
     <head th:insert="~{index::footer}"></head>
     <script th:replace="~{index::bootstrapScript}"></script>
 </body>

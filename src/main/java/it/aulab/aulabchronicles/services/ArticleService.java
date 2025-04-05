@@ -51,7 +51,7 @@ public class ArticleService implements CrudService<ArticleDto, Article, Long> {
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Author id=" + key + " not found");
         }
-        
+
     }
 
     @Override
@@ -93,13 +93,20 @@ public class ArticleService implements CrudService<ArticleDto, Article, Long> {
         throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }
 
-
     public List<ArticleDto> searchByCategory(Category category) {
-    List<ArticleDto> dtos = new ArrayList<ArticleDto>();
-    for (Article article : articleRepository.findByCategory(category)) {
-        dtos.add(modelMapper.map(article, ArticleDto.class));
+        List<ArticleDto> dtos = new ArrayList<ArticleDto>();
+        for (Article article : articleRepository.findByCategory(category)) {
+            dtos.add(modelMapper.map(article, ArticleDto.class));
+        }
+        return dtos;
     }
-    return dtos;
+
+    public List<ArticleDto> searchByAuthor(User user) {
+        List<ArticleDto> dtos = new ArrayList<ArticleDto>();
+        for (Article article : articleRepository.findByUser(user)) {
+            dtos.add(modelMapper.map(article, ArticleDto.class));
+        }
+        return dtos;
     }
 
 }
