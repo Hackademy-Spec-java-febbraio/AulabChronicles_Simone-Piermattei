@@ -1,0 +1,96 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head th:insert="~{index::head}"></head>
+
+<body>
+
+    <div th:insert="~{index::navbar}"></div>
+
+
+    <article class="container-fluid p-5 bg-secondary-subtle text-center">
+        <section class="row justify-content-center">
+            <div class="col-12">
+                <span th:text="${title}">Dettaglio</span>
+                <h2 th:text="${article.title}">Titolo</h2>
+            </div>
+            </div>
+        </section>
+    </article>
+
+    <article class="container my-5">
+        <section class="row justify-content-center">
+            <div class="col-12 col-md-8 d-flex flex-column">
+
+                <div id="carouselExample" class="carousel slide">
+                    <div class="carousel-inner">
+
+                        <div class="carousel-item active">
+
+                            <img th:if="${article.image != null}" th:src="${article.image.path}" class="card-img-top"
+                                alt="...">
+                            <img th:unless="${article.image != null}" th:src="@{/images/default.jpg}"
+                                class="card-img-top" alt="...">
+
+                        </div>
+                    </div>
+
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+
+                <div class="text-center">
+                    <h2 th:text="${article.subtitle}">Sottotitolo</h2>
+
+                    <p class="fs-5" href="">Categoria:
+                        <a th:href="@{/categories/search/{id}(id=${article.category.id})}"
+                            class="text-capitalize fw-bold text-muted" th:text="${article.category.name}">Categoria</a>
+                    </p>
+                    <p class="fs-5" th:if="${article.category == null}">Nessuna Categoria</p>
+
+                    <div class=" text-muted my-3">
+                        <p>Redatto il</p>
+                        <p th:text="${article.publishDate}">data</p> da
+                        <a href="" class="text-muted">
+                            <span th:text="${article.user.username}">Autore<span />
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <p th:text="${article.body}"></p>
+
+
+            <div class="text-center">
+                <a href="#" class="text-secondary pointer" onclick="goBack()">Torna indietro</a>
+            </div>
+
+        </section>
+    </article>
+
+
+
+
+    <div th:insert="~{index::footer}"></div>
+    <script th:replace="~{index::bootstrapScript}"></script>
+
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+</body>
+
+</html>

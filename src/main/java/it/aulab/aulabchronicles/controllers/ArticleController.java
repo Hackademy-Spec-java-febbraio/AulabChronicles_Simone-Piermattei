@@ -13,10 +13,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import it.aulab.aulabchronicles.dtos.ArticleDto;
 import it.aulab.aulabchronicles.dtos.CategoryDto;
 import it.aulab.aulabchronicles.models.Article;
@@ -24,8 +24,6 @@ import it.aulab.aulabchronicles.models.Category;
 import it.aulab.aulabchronicles.services.ArticleService;
 import it.aulab.aulabchronicles.services.CrudService;
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.RequestParam;
-
 
 
 @Controller
@@ -37,12 +35,11 @@ public class ArticleController {
     private CrudService<CategoryDto, Category, Long> categoryService;
     @Autowired
     private ArticleService articleService;
-    
 
     // * Rotta index degli articoli
     @GetMapping
     public String articlesIndex(Model viewModel) {
-        viewModel.addAttribute("title","Tutti gli articoli");
+        viewModel.addAttribute("title", "Tutti gli articoli");
 
         List<ArticleDto> articles = articleService.readAll();
 
@@ -50,7 +47,6 @@ public class ArticleController {
         viewModel.addAttribute("articles", articles);
         return "articles/articles";
     }
-    
 
     // * Rotta per la creazione di un articolo
     @GetMapping("create")
@@ -62,7 +58,6 @@ public class ArticleController {
     }
 
     // * Rotta per lo store di un articolo
-
     @PostMapping("/save")
     public String articleStore(@Valid @ModelAttribute("article") Article article,
             BindingResult result,
@@ -82,6 +77,16 @@ public class ArticleController {
         articleService.create(article, principal, file);
         redirectAttributes.addFlashAttribute("successMessage", "Articolo creato con successo!");
         return "redirect:/";
+    }
+
+
+    
+    // * Rotta per il dettaglio articolo
+    @GetMapping("detail/{id}")
+    public String detailArticle(@PathVariable("id") Long id, Model viewModel) {
+        viewModel.addAttribute("title", "Dettaglio Articolo");
+        viewModel.addAttribute("article", articleService.read(id));
+        return "articles/detail";
     }
 
 }
