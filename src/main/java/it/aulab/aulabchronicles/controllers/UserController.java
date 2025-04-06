@@ -4,12 +4,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-
 import it.aulab.aulabchronicles.dtos.ArticleDto;
 import it.aulab.aulabchronicles.dtos.UserDto;
 import it.aulab.aulabchronicles.models.User;
@@ -23,7 +21,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -36,7 +33,7 @@ public class UserController {
     private ArticleService articleService;
     
 
-    
+
     // * Rotta di home
     @GetMapping("/")
     public String home(Model viewModel) {
@@ -69,6 +66,7 @@ public class UserController {
     
     
     // * Rotta per il salvataggio della registrazione
+    @SuppressWarnings("null")
     @PostMapping("/register/save")
     public String registration(@Valid @ModelAttribute("user") UserDto userDto,
     BindingResult result,

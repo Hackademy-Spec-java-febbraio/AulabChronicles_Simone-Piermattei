@@ -26,3 +26,17 @@ ACCEPTANCE CRITERIA:
 - Pagina dettaglio per ogni articolo
 - Click per ricerca per categoria
 - Click per ricerca per scrittore
+
+
+# USER STORY #3 (Marta)
+
+Come Marta vorrei poter contare su una funzione di fact-checking in modo tale da poter controllare quali notizie pubblicare.
+
+ACCEPTANCE CRITERIA:
+- Tre nuovi ruoli: Admin, Revisor, Writer
+- Un utente registrato richiede di entrare a far parte del team tramite un form di "lavora con noi"
+- Creazione di una dashboard per il proprietario della piattaforma per poter gestire le richieste
+- Permettere solo all'admin la modifi ca e cancellazione delle categorie
+- Gli utenti revisori avranno una sezione a loro dedicata con tutti gli articoli da revisionare
+- Bottone accetta articolo
+- Bottone rifi uta articolo

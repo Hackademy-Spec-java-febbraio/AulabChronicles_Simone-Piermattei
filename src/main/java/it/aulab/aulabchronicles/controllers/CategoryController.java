@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import it.aulab.aulabchronicles.dtos.ArticleDto;
 import it.aulab.aulabchronicles.dtos.CategoryDto;
 import it.aulab.aulabchronicles.models.Category;
@@ -15,7 +14,6 @@ import it.aulab.aulabchronicles.services.ArticleService;
 import it.aulab.aulabchronicles.services.CategoryService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller

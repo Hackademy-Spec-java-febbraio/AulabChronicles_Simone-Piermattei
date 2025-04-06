@@ -15,8 +15,14 @@
         </div>
     </div>
 
+    <!-- Messaggio di successo -->
     <div th:if="${successMessage}" class="alert alert-success">
         <p th:text="${successMessage}"></p>
+    </div>
+
+    <!--  Messaggio di errore -->
+    <div th:if="${errorMessage}" class="alert alert-success">
+        <p th:text="${errorMessage}"></p>
     </div>
 
     <article class="container-fluid">
