@@ -43,14 +43,27 @@
                         <a class="nav-link" href="/articles">Tutti gli articoli</a>
                     </li>
 
+                    <!-- * Dashboard ADMIN -->
                     <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
                         <div class="d-flex">
-                            <a href="/admin/dashboard" class="nav-link">Dashboard admin</a>
+                            <a href="/admin/dashboard" class="nav-link">Dashboard Admin</a>
                             <div class="mt-1" th:if="${careerRequests > 0}"></div>
                             <i class="fas fa-bell fa-1 pt-2"></i>
                             <span class="badge rounded-pill bg-danger text-white" th:text="${careerRequests}"></span>
                         </div>
                     </li>
+                    <!-- * -->
+
+                    <!-- * Dashboard REVISOR -->
+                    <li class="nav-item" sec:authorize="hasRole('ROLE_REVISOR')">
+                        <div class="d-flex">
+                            <a href="/revisor/dashboard" class="nav-link">Dashboard Revisor</a>
+                            <div class="mt-1" th:if="${articleToBeRevised > 0}"></div>
+                            <i class="fas fa-bell fa-1 pt-2"></i>
+                            <span class="badge rounded-pill bg-danger text-white" th:text="${articleToBeRevised}"></span>
+                        </div>
+                    </li>
+                    <!-- * -->
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -120,7 +133,8 @@
         crossorigin="anonymous"></script>
 
     <!-- *  Script FONTAWESOME -->
-    <script th:fragment="fontawesomeScript" src="https://kit.fontawesome.com/985bc21d3d.js" crossorigin="anonymous"></script>
+    <script th:fragment="fontawesomeScript" src="https://kit.fontawesome.com/985bc21d3d.js"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

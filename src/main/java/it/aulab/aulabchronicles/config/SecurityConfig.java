@@ -53,6 +53,11 @@ public class SecurityConfig {
                                                                                 "/categories/delete/{id}",
                                                                                 "/categories/update/{id}")
                                                                 .hasRole("ADMIN")
+                                                                .requestMatchers(
+                                                                                "/rervisor/dashboard",
+                                                                                "revisor/detail/{id}",
+                                                                                "/accept")
+                                                                .hasRole("ADMIN")
                                                                 .anyRequest().authenticated())
                                 .formLogin(form -> form.loginPage("/login")
                                                 .loginProcessingUrl("/login")

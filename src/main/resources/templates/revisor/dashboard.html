@@ -11,16 +11,16 @@
         <p th:text="${successMessage}"></p>
     </div>
 
-
+<div class="vh100">
     <article class="container min-vh-100">
         <section class="row">
 
             <div class="col-12 my-5 d-flex justify-content-center align-items-center">
-                <span class="h1">Dashboard Admin</span>
+                <span class="h1">Dashboard Revisor</span>
             </div>
 
             <div class="col-12 my-5 d-flex justify-content-center align-items-center">
-                <span class="h1" th:text="${title}">Richieste ricevute</span>
+                <span class="h1" th:text="${title}">Articoli da Revisionare</span>
             </div>
 
             <div class="col-12">
@@ -28,20 +28,22 @@
                     <thead>
                         <tr>
                             <th>Id</th>
-                            <th>Utente</th>
-                            <th>Per il ruolo</th>
+                            <th>Titolo</th>
+                            <th>Sottotitolo</th>
+                            <th>Categoria</th>
                             <th>#Actions</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        <tr th:each="request:${requests}">
-                            <td th:text="${request.id}"></td>
-                            <td th:text="${request.user.username}"></td>
-                            <td th:text="${request.role.name}"></td>
+                        <tr th:each="article:${articles}">
+                            <td th:text="${article.id}"></td>
+                            <td th:text="${article.title}"></td>
+                            <td th:text="${article.subtitle}"></td>
+                            <td th:if="${article.category}" th:text="${article.category.name}"></td>
+                            <td th:unless="${article.category}">Nessuna Categoria</td>
                             <td>
-                                <a th:href="@{/operations/career/request/detail/{id}(id=${request.id})}"
-                                    class="btn btn-primary">
+                                <a th:href="@{/articles/revisor/detail/{id}(id=${article.id})}" class="btn btn-primary">
                                     <i class="fa-solid fa-bars"></i>
                                 </a>
                             </td>
@@ -49,45 +51,7 @@
                     </tbody>
                 </table>
             </div>
-
-            <div class="col-12 my-5 d-flex justify-content-center align-items-center">
-                <span class="h1">Tutte le categorie</span>
-                <a th:href="@{/categories/create}" class="btn btn-success m-2">
-                    <i class="fa-solid fa-plus"></i>
-                </a>
-            </div>
-
-            <div class="col-12">
-                <table class="table table-striped table-responsive-lg">
-
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Title</th>
-                            <th>Subtitle</th>
-                            <th>Category</th>
-                            <th>#Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="article:${articles}">
-                            <td th:text="${article.id}"></td>
-                            <td th:text="${article.title}"></td>
-                            <td th:text="${article.title}"></td>
-                            <td th:if="${article.category}" th:text="${article.category.name}"></td>
-                            <td th:unless="${article.category}">Nessuna Categoria</td>
-                            <td>
-                                <a th:href="@{/articles/revisor/detail/{id}(id=${article.id})}" class="btn btn-primary m-2">
-                                    Leggi
-                                </a>
-
-                            </td>
-                        </tr>
-                </table>
-            </div>
-
-        </section>
-    </article>
+        </div>
 
 
 

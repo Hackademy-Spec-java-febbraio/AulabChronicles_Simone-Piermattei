@@ -123,7 +123,8 @@ public class UserController {
         viewModel.addAttribute("title", "Tutti gli articoli trovati per utente" + user.getUsername());
 
         List<ArticleDto> articles = articleService.searchByAuthor(user);
-        viewModel.addAttribute("articles", articles);
+        List<ArticleDto> acceptedArticles = articles.stream().filter(article -> Boolean.TRUE.equals(article.getIsAccepted())).collect(Collectors.toList());
+        viewModel.addAttribute("articles", acceptedArticles);
         return "articles/articles";
     }
 
