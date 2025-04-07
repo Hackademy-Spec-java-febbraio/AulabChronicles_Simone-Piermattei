@@ -33,16 +33,26 @@ public class SecurityConfig {
                 http
                                 .csrf(csrf -> csrf.disable())
                                 .authorizeHttpRequests(
-                                                (authorize) -> authorize.requestMatchers("/register/**").permitAll()
-                                                                .requestMatchers("/register", "/", "/articles")
-                                                                .permitAll()
-                                                                .requestMatchers("/register", "/", "/articles",
-                                                                                "/images/**", "/articles/detail/**",
+                                                (authorize) -> authorize
+                                                                .requestMatchers(
+                                                                                "/register/**",
+                                                                                "/register",
+                                                                                "/",
+                                                                                "/articles",
+                                                                                "/",
+                                                                                "/images/**",
+                                                                                "/articles/detail/**",
                                                                                 "/categories/search/{id}",
                                                                                 "/search/{id}")
                                                                 .permitAll()
-                                                                .requestMatchers("/admin/dashboard").hasRole("ADMIN")
-                                                                .requestMatchers("/admin/**").hasRole("ADMIN")
+                                                                .requestMatchers(
+                                                                                "/admin/**",
+                                                                                "/admin/dashboard",
+                                                                                "/categories/create",
+                                                                                "/categories/edit/{id}",
+                                                                                "/categories/delete/{id}",
+                                                                                "/categories/update/{id}")
+                                                                .hasRole("ADMIN")
                                                                 .anyRequest().authenticated())
                                 .formLogin(form -> form.loginPage("/login")
                                                 .loginProcessingUrl("/login")

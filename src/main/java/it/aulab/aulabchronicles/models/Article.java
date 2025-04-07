@@ -48,6 +48,9 @@ public class Article {
     @NotNull
     private LocalDate publishDate;
 
+    @Column(name = "is_accepted", nullable = true)
+    private Boolean isAccepted;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonIgnoreProperties({"articles"})
