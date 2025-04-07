@@ -64,14 +64,18 @@
                         <tr>
                             <th>Id</th>
                             <th>Nome</th>
-                            <th>#Actions</th>
+                            <th class="text-end">#Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="category:${categories}">
                             <td th:text="${category.id}"></td>
                             <td th:text="${category.name}"></td>
-                            <td class="text-end">#</td>
+                            <td class="text-end">
+                                <a th:href="@{/categories/edit/{id}(id=${category.id})}" class="btn btn-warning m-2">
+                                    <i class="fa-solid fa-pencil"></i>
+                                </a>
+                            </td>
                         </tr>
                 </table>
             </div>

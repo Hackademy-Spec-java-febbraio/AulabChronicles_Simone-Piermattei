@@ -6,8 +6,11 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
+
 import it.aulab.aulabchronicles.dtos.CategoryDto;
 import it.aulab.aulabchronicles.models.Category;
 import it.aulab.aulabchronicles.repositories.CategoryRepository;
@@ -46,8 +49,13 @@ public class CategoryService implements CrudService<CategoryDto, Category, Long>
 
     @Override
     public CategoryDto update(Long key, Category model, MultipartFile file) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        if (categoryRepository.existsById(key)) {
+            model.setId(key);
+            return modelMapper.map(categoryRepository.save(model), CategoryDto.class);
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            
+        }
     }
 
     @Override

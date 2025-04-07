@@ -75,7 +75,35 @@ public class CategoryController {
         categoryService.create(category, null, null);
         redirectAttributes.addFlashAttribute("succesMessage", "Categoria creata con successo!");
         return "redirect:/admin/dashboard";
-
     }
 
+    // * Rotta per la modifica di una categoria.
+
+    @GetMapping("/edit/{id}")
+    public String categoryEdit(@PathVariable("id") Long id, Model viewModel) {
+        viewModel.addAttribute("title", "Modifica categoria");
+        viewModel.addAttribute("category", categoryService.read(id));
+        return "categories/update";
+    }
+
+    // * Rotta per la memorizzazione delle modifiche di una categoria
+    @PostMapping("/update/{id}")
+    public String categoryUpdate(@PathVariable("id") Long id,
+            @Valid @ModelAttribute("category") Category category,
+            BindingResult result,
+            Model viewModel,
+            RedirectAttributes redirectAttributes) {
+
+        // Controllo degli errori con validazioni
+        if (result.hasErrors()) {
+            viewModel.addAttribute("title", "Modifica  categoria");
+            viewModel.addAttribute("category", category);
+            return "categories/update";
+        }
+
+        categoryService.update(id, category, null);
+        redirectAttributes.addFlashAttribute("successMessage", "Categoria modificata con successo!");
+        return "redirect:/admin/dashboard";
+
+    }
 }

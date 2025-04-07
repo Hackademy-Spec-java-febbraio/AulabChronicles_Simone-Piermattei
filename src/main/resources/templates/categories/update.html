@@ -1,0 +1,50 @@
+<!doctype html>
+<html xmlns:th="http://thymeleaf.org" lang="en">
+<!-- * Inizio Head -->
+
+<head th:insert="~{index::head}"></head>
+<!-- * Fine head -->
+
+<body>
+
+    <div th:insert="~{index::navbar}"></div>
+
+
+
+    <article class="container">
+        <section class="row">
+
+            <div class="col-12 my-5 d-flex justify-content-between align-items-center">
+                <div class="d-flex justify-content-center align-items-center">
+                    <h1 th:text="${title}">Modifica categoria</h1>
+                </div>
+            </div>
+
+            <div class="col-12 my-5">
+                    <form th:action="@{/categories/update/{id}(id=${category.id})}" method="POST" th:object="${category}">
+                    <section class="row mb-3">
+                        <div class="col">
+                            <label for="name" class="form-label">Nome categoria</label>
+                            <input type="text" id="name" class="form-control" th:field="*{name}"
+                                placeholder="Inserisci categoria...">
+                            <p th:errors="*{name}" class="text-danger" th:if="${#fields.hasErrors('name')}"></p>
+                        </div>
+                    </section>
+
+                    <button type="submit" class="btn btn-success">Aggiorna categoria</button>
+
+                </form>
+            </div>
+
+
+        </section>
+    </article>
+
+
+
+
+    <div th:insert="~{index::footer}"></div>
+    <script th:replace="~{index::bootstrapScript}"></script>
+</body>
+
+</html>
