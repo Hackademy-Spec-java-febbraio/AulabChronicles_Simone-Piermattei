@@ -43,6 +43,15 @@
                         <a class="nav-link" href="/articles">Tutti gli articoli</a>
                     </li>
 
+                    <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+                        <div class="d-flex">
+                            <a href="/admin/dashboard" class="nav-link">Dashboard admin</a>
+                            <div class="mt-1" th:if="${careerRequests > 0}"></div>
+                            <i class="fas fa-bell fa-1 pt-2"></i>
+                            <span class="badge rounded-pill bg-danger text-white" th:text="${careerRequests}"></span>
+                        </div>
+                    </li>
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
@@ -109,6 +118,9 @@
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+
+    <!-- *  Script FONTAWESOME -->
+    <script th:fragment="fontawesomeScript" src="https://kit.fontawesome.com/985bc21d3d.js" crossorigin="anonymous"></script>
 </body>
 
 </html>

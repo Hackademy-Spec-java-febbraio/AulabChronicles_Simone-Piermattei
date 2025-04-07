@@ -41,8 +41,7 @@ public class CategoryService implements CrudService<CategoryDto, Category, Long>
 
     @Override
     public CategoryDto create(Category model, Principal principal, MultipartFile file) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'create'");
+        return modelMapper.map(categoryRepository.save(model), CategoryDto.class);
     }
 
     @Override

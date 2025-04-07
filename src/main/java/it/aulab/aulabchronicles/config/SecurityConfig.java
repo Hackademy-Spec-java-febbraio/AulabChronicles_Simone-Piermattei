@@ -34,8 +34,15 @@ public class SecurityConfig {
                                 .csrf(csrf -> csrf.disable())
                                 .authorizeHttpRequests(
                                                 (authorize) -> authorize.requestMatchers("/register/**").permitAll()
-                                                                .requestMatchers("/register", "/" ,"/articles").permitAll()
-                                                                .requestMatchers("/register", "/", "/articles", "/images/**", "/articles/detail/**", "/categories/search/{id}", "/search/{id}").permitAll()
+                                                                .requestMatchers("/register", "/", "/articles")
+                                                                .permitAll()
+                                                                .requestMatchers("/register", "/", "/articles",
+                                                                                "/images/**", "/articles/detail/**",
+                                                                                "/categories/search/{id}",
+                                                                                "/search/{id}")
+                                                                .permitAll()
+                                                                .requestMatchers("/admin/dashboard").hasRole("ADMIN")
+                                                                .requestMatchers("/admin/**").hasRole("ADMIN")
                                                                 .anyRequest().authenticated())
                                 .formLogin(form -> form.loginPage("/login")
                                                 .loginProcessingUrl("/login")

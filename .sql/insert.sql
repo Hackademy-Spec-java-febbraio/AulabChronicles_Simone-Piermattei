@@ -1,5 +1,5 @@
 INSERT INTO users (username, email, password, created_at) VALUES
-('admin', 'admin@aulab.it', '25f9e794323b453885f5181f1b624d0b', "20240101");
+('admin', 'admin@aulab.it', '$2y$10$pyVFAecNHZcK/3Yy7IBOAuhCT7vG21Y8JESp.zNdvGb0u9lTqHJ4W', "20240101");
 
 
 
