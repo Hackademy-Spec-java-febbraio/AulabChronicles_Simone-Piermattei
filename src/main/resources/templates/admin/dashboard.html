@@ -52,7 +52,7 @@
 
             <div class="col-12 my-5 d-flex justify-content-center align-items-center">
                 <span class="h1">Tutte le categorie</span>
-                <a th:href="@{/categories/create}" class="btn btn-primary m-2">
+                <a th:href="@{/categories/create}" class="btn btn-success m-2">
                     <i class="fa-solid fa-plus"></i>
                 </a>
             </div>
@@ -75,6 +75,11 @@
                                 <a th:href="@{/categories/edit/{id}(id=${category.id})}" class="btn btn-warning m-2">
                                     <i class="fa-solid fa-pencil"></i>
                                 </a>
+
+                                <a th:href="@{/categories/delete/{id}(id=${category.id})}" class="btn btn-danger m-2">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+
                             </td>
                         </tr>
                 </table>

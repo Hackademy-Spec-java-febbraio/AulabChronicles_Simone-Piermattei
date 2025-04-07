@@ -106,4 +106,15 @@ public class CategoryController {
         return "redirect:/admin/dashboard";
 
     }
+
+    // * Rotta per la cancellazione di una categoria.
+
+    @GetMapping("delete/{id}")
+    public String categoryDelete(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+        categoryService.delete(id);
+        redirectAttributes.addFlashAttribute("successMessage", "Categoria cancellata con successo!");
+        return "redirect:/admin/dashboard";
+
+    }
+
 }
