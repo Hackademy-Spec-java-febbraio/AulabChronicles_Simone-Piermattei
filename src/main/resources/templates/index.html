@@ -81,13 +81,16 @@
                 </ul>
 
 
-                <div th:if="${#authorization.expression('isAuthenticated()')}"
-                    th:text="'Benvenuto: ' + ${#authentication.principal.fullname} + ' - ' + ${#authentication.principal.authorities[0].authority.replace('ROLE_', '')}">
-                    Benvenuto</div>
+                <div class="mx-5" th:if="${#authorization.expression('isAuthenticated()')}">
+                    <span th:text="'Benvenuto: ' + ${#authentication.principal.fullname} + ' - '"></span>
+                    <span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" th:text="'ADMIN'"></span>
+                    <span th:unless="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" th:text="${#authentication.principal.authorities[0].authority.replace('ROLE_', '')}"></span>
+                </div>
+                
 
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                <form class="d-flex" role="search" th:action="@{/articles/search}" method="GET">
+                    <input class="form-control me-2" type="search" placeholder="Cerca articoli..." aria-label="Cerca articoli" name="keyword">
+                    <button class="btn btn-outline-success" type="submit">Cerca</button>
                 </form>
             </div>
         </div>

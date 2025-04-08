@@ -142,7 +142,7 @@ public class UserController {
 
     @GetMapping("/revisor/dashboard")
     public String revisorDashboard(Model viewModel) {
-        viewModel.addAttribute("title", "Richieste ricevute");
+        viewModel.addAttribute("title", "Articoli da revisionare");
         viewModel.addAttribute("articles", articleRepository.findByIsAcceptedIsNull());
 
         return "revisor/dashboard";

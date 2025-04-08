@@ -35,6 +35,7 @@
                         <div class="card-body">
                             <h5 class="card-title" th:text="${article.title}"></h5>
                             <p class="card-text" th:text="${article.subtitle}"></p>
+                            <p class="card-text" th:text="${article.category.name}"></pclass>
                             <p class="card-text" th:text="${article.user.username}"></p>
 
                             <a th:href="@{/articles/detail/{id}(id=${article.id})}" class="btn btn-primary">Leggi articolo</a>

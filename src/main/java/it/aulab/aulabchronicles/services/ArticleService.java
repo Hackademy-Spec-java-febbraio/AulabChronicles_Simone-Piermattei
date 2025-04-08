@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,10 +112,21 @@ public class ArticleService implements CrudService<ArticleDto, Article, Long> {
         return dtos;
     }
 
-
-    public void setIsAccepted(Boolean result, Long id){
+    public void setIsAccepted(Boolean result, Long id) {
         Article article = articleRepository.findById(id).get();
         article.setIsAccepted(result);
         articleRepository.save(article);
+    }
+
+    public List<ArticleDto> search(String keyword) {
+        List<Article> articles;
+        if (keyword == null || keyword.trim().isEmpty()) {
+            articles = articleRepository.searchAllAccepted();
+        } else {
+            articles = articleRepository.search(keyword);
+        }
+        return articles.stream()
+                .map(article -> modelMapper.map(article, ArticleDto.class))
+                .collect(Collectors.toList());
     }
 }

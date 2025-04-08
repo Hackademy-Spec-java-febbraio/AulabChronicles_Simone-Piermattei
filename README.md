@@ -40,3 +40,13 @@ ACCEPTANCE CRITERIA:
 - Gli utenti revisori avranno una sezione a loro dedicata con tutti gli articoli da revisionare
 - Bottone accetta articolo
 - Bottone rifi uta articolo
+
+
+# USER STORY #4 (Lorenzo)
+
+Come Lorenzo vorrei poter cercare tra gli articoli in modo tale da visualizzare subito quello che mi interessa.
+
+- Implementazione della ricerca full-text
+- Ricerca per titolo
+- Ricerca per sottotitolo
+- Ricerca per categoria

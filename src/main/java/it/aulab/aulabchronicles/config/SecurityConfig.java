@@ -43,7 +43,8 @@ public class SecurityConfig {
                                                                                 "/images/**",
                                                                                 "/articles/detail/**",
                                                                                 "/categories/search/{id}",
-                                                                                "/search/{id}")
+                                                                                "/search/{id}",
+                                                                                "/articles/search")
                                                                 .permitAll()
                                                                 .requestMatchers(
                                                                                 "/admin/**",

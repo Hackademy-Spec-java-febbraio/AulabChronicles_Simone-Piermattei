@@ -4,10 +4,12 @@ import java.security.Principal;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -50,12 +52,17 @@ public class ArticleController {
     public String articlesIndex(Model viewModel) {
         viewModel.addAttribute("title", "Tutti gli articoli");
 
-        List<ArticleDto> articles = articleService.readAll();
-        for (Article article : articleRepository.findByIsAcceptedTrue()) {
-            articles.add(modelMapper.map(article, ArticleDto.class));
-        }
+        // Recupera solo gli articoli accettati dal repository
+        List<Article> acceptedArticles = articleRepository.findByIsAcceptedTrue();
 
+        // Converti Article in ArticleDto
+        List<ArticleDto> articles = acceptedArticles.stream()
+                .map(article -> modelMapper.map(article, ArticleDto.class))
+                .collect(Collectors.toList());
+
+        // Ordina gli articoli accettati per data di pubblicazione (discendente)
         Collections.sort(articles, Comparator.comparing(ArticleDto::getPublishDate).reversed());
+
         viewModel.addAttribute("articles", articles);
         return "articles/articles";
     }
@@ -126,6 +133,20 @@ public class ArticleController {
 
         }
         return "redirect:/revisor/dashboard";
+    }
+
+    // * Rotta per la ricerca di un articolo
+    
+    @GetMapping("/search")
+    public String articleSearch(@Param("keyword") String keyword, Model viewModel) {
+        viewModel.addAttribute("title", "Tutti gli articoli trovati");
+
+        List<ArticleDto> articles = articleService.search(keyword);
+        //List<ArticleDto> acceptedArticles = articles.stream().filter(article -> Boolean.TRUE.equals(article.getIsAccepted())).collect(Collectors.toList()); //Removed
+
+        viewModel.addAttribute("articles", articles); //Use articles directly
+
+        return "articles/articles";
     }
 
 }
