@@ -1,6 +1,8 @@
 package it.aulab.aulabchronicles.dtos;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import it.aulab.aulabchronicles.models.Category;
 import it.aulab.aulabchronicles.models.Image;
@@ -22,5 +24,5 @@ public class ArticleDto {
     private Boolean isAccepted;
     private User user;
     private Category category;
-    private Image image;
+    private List<Image> images = new ArrayList<>();
 }

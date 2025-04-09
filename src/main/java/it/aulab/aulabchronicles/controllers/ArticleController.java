@@ -106,6 +106,16 @@ public class ArticleController {
         return "articles/detail";
     }
 
+    // * Rotta per la modifica di un articolo
+
+    @GetMapping("/edit/{id}")
+    public String editArticle(@PathVariable("id") Long id, Model viewModel) {
+        viewModel.addAttribute("title", "Modifica articolo");
+        viewModel.addAttribute("article", articleService.read(id));
+        viewModel.addAttribute("categories", categoryService.readAll());
+        return "articles/edit";
+    }
+
     // * Rotta dettaglio di un articolo per il revisore
 
     @GetMapping("revisor/detail/{id}")
@@ -136,17 +146,49 @@ public class ArticleController {
     }
 
     // * Rotta per la ricerca di un articolo
-    
+
     @GetMapping("/search")
     public String articleSearch(@Param("keyword") String keyword, Model viewModel) {
         viewModel.addAttribute("title", "Tutti gli articoli trovati");
 
         List<ArticleDto> articles = articleService.search(keyword);
-        //List<ArticleDto> acceptedArticles = articles.stream().filter(article -> Boolean.TRUE.equals(article.getIsAccepted())).collect(Collectors.toList()); //Removed
+        // List<ArticleDto> acceptedArticles = articles.stream().filter(article ->
+        // Boolean.TRUE.equals(article.getIsAccepted())).collect(Collectors.toList());
+        // //Removed
 
-        viewModel.addAttribute("articles", articles); //Use articles directly
+        viewModel.addAttribute("articles", articles); // Use articles directly
 
         return "articles/articles";
     }
+
+    // * Rotta per la memorizzazione della modifica di un articolo
+
+    @PostMapping("/update/{id}")
+    public String articleUpdate(@PathVariable("id")Long id,
+    @Valid @ModelAttribute("article") Article article,
+    BindingResult result,
+    Model viewModel,
+    RedirectAttributes redirectAttributes,
+    Principal principal,
+    MultipartFile file
+    ) {
+        
+        // Controllo degli errori con validazioni
+
+        if (result.hasErrors()) {
+            viewModel.addAttribute("title", "Article update");
+            article.setImages(articleService.read(id).getImages());
+            viewModel.addAttribute("article", article);
+            viewModel.addAttribute("categories",  categoryService.readAll());
+            return "articles/edit";
+
+            
+        }
+
+        articleService.update(id, article, file);
+        redirectAttributes.addFlashAttribute("successMessage", "Articolo modificato con successo!");
+        return "redirect:/articles";
+    }
+    
 
 }

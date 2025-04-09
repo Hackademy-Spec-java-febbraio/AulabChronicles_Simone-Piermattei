@@ -46,7 +46,20 @@ ACCEPTANCE CRITERIA:
 
 Come Lorenzo vorrei poter cercare tra gli articoli in modo tale da visualizzare subito quello che mi interessa.
 
+ACCEPTANCE CRITERIA:
 - Implementazione della ricerca full-text
 - Ricerca per titolo
 - Ricerca per sottotitolo
 - Ricerca per categoria
+
+# USER STORY #5 (Sara)
+
+Come Sara vorrei poter cancellare o modifi care gli articoli che ho scritto in modo tale da consegnare sempre un lavoro d'alta qualità.
+
+ACCEPTANCE CRITERIA:
+- Creazione di una dashboard dedicata ai writer
+- Permettere solo al writer specifico la modifica di un articolo
+- Permettere solo al writer specifico la cancellazione di un articolo
+
+EXTRA:
+- Se l'articolo viene modificato, deve ritornare alla revisione

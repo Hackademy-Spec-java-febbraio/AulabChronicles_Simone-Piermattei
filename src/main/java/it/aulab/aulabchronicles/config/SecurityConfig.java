@@ -58,7 +58,7 @@ public class SecurityConfig {
                                                                                 "/rervisor/dashboard",
                                                                                 "revisor/detail/{id}",
                                                                                 "/accept")
-                                                                .hasRole("ADMIN")
+                                                                .hasRole("REVISOR")
                                                                 .anyRequest().authenticated())
                                 .formLogin(form -> form.loginPage("/login")
                                                 .loginProcessingUrl("/login")

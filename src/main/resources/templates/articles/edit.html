@@ -1,0 +1,112 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head th:insert="~{index::head}"></head>
+
+<body>
+
+    <div th:insert="~{index::navbar}"></div>
+
+
+    <article class="container-fluid p-5 bg-secondary-subtle text-center">
+        <section class="row justify-content-center">
+
+            <div class="col-12">
+                <span class="h1">Modifica articolo</span>
+                <h2 th:text="${article.title}">Titolo</h2>
+            </div>
+        </section>
+    </article>
+
+    <article class="container">
+        <section class="row">
+            <div class="col-12 my-5">
+
+                <form th:action="@{/articles/update/{id}(id=${article.id})}" method="POST" th:object="${article}"
+                    enctype="multipart/form-data">
+
+                    <section class="row mb-3">
+                        <div class="col">
+                            <label for="articleTitle" class="form-label">Titolo</label>
+                            <input type="text" class="form-control" id="articleTitle" th:field="*{title}"
+                                placeholder="Inserisci il titolo...">
+                            <p th:errors="*{title}" class="text-danger" th:if="${#fields.hasErrors('title')}">
+                            </p>
+                        </div>
+                        <div class="col">
+                            <label for="subtitle" class="form-label">Sottotitolo</label>
+                            <input type="text" class="form-control" id="subtitle" th:field="*{subtitle}"
+                                placeholder="Inserisci un sottotitolo...">
+                            <p th:errors="*{subtitle}" class="text-danger" th:if="${#fields.hasErrors('subtitle')}">
+                            </p>
+                        </div>
+                    </section>
+
+                    <div class="mb-3">
+                        <label for="body" class="form-label">Articolo:</label>
+                        <input type="text" class="form-control" id="body" th:field="*{body}"
+                            placeholder="Inserisci un testo...">
+                        <p th:errors="*{body}" class="text-danger" th:if="${#fields.hasErrors('body')}"></p>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label for="date" class="form-label">Publish date (8 chars)</label>
+                        <input type="date" class="form-control" id="date" th:field="*{publishDate}"
+                            placeholder="yyyyMMdd">
+                        <p th:errors="*{publishDate}" class="text-danger" th:if="${#fields.hasErrors('publishDate')}">
+                        </p>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label for="category" class="form-label">Category</label>
+                        <select type="category" class="form-select" th:field="*{category}">
+                            <option th:each="category:${categories}" th:value="${category.id}"
+                                th:text="${category.name}">
+                            </option>
+                            <p th:errors="*{category}" class="text-danger" th:if="${#fields.hasErrors('category')}">
+                            </p>
+                        </select>
+                    </div>
+
+                    <!-- Controlla se la lista 'images' non è null E non è vuota -->
+                    <div class="mb-3 d-flex flex-column"
+                        th:if="${article.images != null and !#lists.isEmpty(article.images)}">
+                        <label class="form-label">Immagine attuale</label> <!-- Rimosso for="image" -->
+                        <!-- Mostra la prima immagine della lista -->
+                        <img th:src="${article.images[0].path}" alt="Immagine attuale"
+                            class="rounded mx-auto d-block img-thumbnail" style="max-width: 300px; height: auto;">
+                        <!-- Rimosso id="image", modificato alt, aggiunto stile -->
+                    </div>
+                    <!-- Mostra questo blocco se la lista è null O vuota -->
+                    <div th:unless="${article.images != null and !#lists.isEmpty(article.images)}">
+                        <label class="form-label">Immagine attuale</label> <!-- Rimosso for="image" -->
+                        <p>Nessuna immagine presente</p>
+                    </div>
+
+                    <!-- Input per caricare NUOVE immagini -->
+                    <div class="mb-3">
+                        <label for="imageUpload" class="form-label">Carica nuova/e immagine/i (sostituirà quelle
+                            esistenti)</label> <!-- Cambiato for e id -->
+                        <input type="file" class="form-control" name="file" id="imageUpload" multiple="multiple">
+                        <!-- Cambiato id -->
+                    </div>
+
+
+
+                    <button type="submit" class="btn btn-primary">Modifica Articolo</button>
+                </form>
+            </div>
+
+        </section>
+    </article>
+
+
+
+    <div th:insert="~{index::footer}"></div>
+    <script th:replace="~{index::bootstrapScript}"></script>
+
+</body>
+
+</html>

@@ -27,10 +27,40 @@
 
                         <div class="carousel-item active">
 
-                            <img th:if="${article.image != null}" th:src="${article.image.path}" class="card-img-top"
-                                alt="...">
-                            <img th:unless="${article.image != null}" th:src="@{/images/default.jpg}"
-                                class="card-img-top" alt="...">
+                            <div id="carouselExample" class="carousel slide">
+                                <div class="carousel-inner">
+                                    <!-- Itera sulla lista di immagini, se non è vuota -->
+                                    <th:block th:if="${article.images != null and !#lists.isEmpty(article.images)}">
+                                        <!-- Per ogni immagine nella lista 'article.images' -->
+                                        <div th:each="image, iterStat : ${article.images}"
+                                            th:classappend="${iterStat.index == 0} ? 'active' : ''"
+                                            class="carousel-item">
+                                            <!-- Mostra l'immagine corrente dell'iterazione -->
+                                            <img th:src="${image.path}" class="d-block w-100" alt="Article image">
+                                        </div>
+                                    </th:block>
+                                    <!-- Se la lista di immagini è vuota o null, mostra un'immagine di default -->
+                                    <div th:unless="${article.images != null and !#lists.isEmpty(article.images)}"
+                                        class="carousel-item active">
+                                        <img th:src="@{/images/default.jpg}" class="d-block w-100" alt="Default Image">
+                                    </div>
+                                </div>
+
+                                <!-- Controlli del carosello (mantieni se vuoi la navigazione) -->
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
+                                    data-bs-slide="prev"
+                                    th:if="${article.images != null and #lists.size(article.images) > 1}">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
+                                    data-bs-slide="next"
+                                    th:if="${article.images != null and #lists.size(article.images) > 1}">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+
 
                         </div>
                     </div>

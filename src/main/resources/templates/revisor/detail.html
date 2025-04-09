@@ -22,71 +22,81 @@
         <section class="row justify-content-center">
             <div class="col-12 col-md-8 d-flex flex-column">
 
+
                 <div id="carouselExample" class="carousel slide">
                     <div class="carousel-inner">
 
-                        <div class="carousel-item active">
+                        <div class="carousel-inner">
+                            <!-- Itera sulla lista di immagini, se non è vuota -->
+                            <th:block th:if="${!article.images.isEmpty()}">
+                                <!-- Per ogni immagine nella lista 'article.images' -->
+                                <div th:each="image, iterStat : ${article.images}"
+                                    th:classappend="${iterStat.index == 0} ? 'active' : ''" class="carousel-item">
+                                    <!-- Mostra l'immagine corrente dell'iterazione -->
+                                    <img th:src="${image.path}" class="d-block w-100" alt="Article image">
+                                </div>
+                            </th:block>
+                            <!-- Se la lista di immagini è vuota, mostra un'immagine di default -->
+                            <div th:if="${article.images.isEmpty()}" class="carousel-item active">
+                                <img th:src="@{/images/default.jpg}" class="d-block w-100" alt="Default Image">
+                            </div>
+                        </div>
 
-                            <img th:if="${article.image != null}" th:src="${article.image.path}" class="card-img-top"
-                                alt="...">
-                            <img th:unless="${article.image != null}" th:src="@{/images/default.jpg}"
-                                class="card-img-top" alt="...">
+
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+
+
+                    <div class="text-center">
+                        <h2 th:text="${article.subtitle}">Sottotitolo</h2>
+
+                        <p class="fs-5" href="">Categoria:
+                            <a th:href="@{/categories/search/{id}(id=${article.category.id})}"
+                                class="text-capitalize fw-bold text-muted"
+                                th:text="${article.category.name}">Categoria</a>
+                        </p>
+                        <p class="fs-5" th:if="${article.category == null}">Nessuna Categoria</p>
+
+                        <div class=" text-muted my-3">
+                            <p>Redatto il</p>
+                            <p th:text="${article.publishDate}">data</p> da
+                            <a th:href="@{/search/{id}(id=${article.user.id})}" class="text-muted">
+                                <span th:text="${article.user.username}">Autore<span />
+                            </a>
 
                         </div>
                     </div>
-
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
-                        data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
-                        data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
                 </div>
+
+                <hr>
+                <p th:text="${article.body}"></p>
+
 
                 <div class="text-center">
-                    <h2 th:text="${article.subtitle}">Sottotitolo</h2>
-
-                    <p class="fs-5" href="">Categoria:
-                        <a th:href="@{/categories/search/{id}(id=${article.category.id})}"
-                            class="text-capitalize fw-bold text-muted" th:text="${article.category.name}">Categoria</a>
-                    </p>
-                    <p class="fs-5" th:if="${article.category == null}">Nessuna Categoria</p>
-
-                    <div class=" text-muted my-3">
-                        <p>Redatto il</p>
-                        <p th:text="${article.publishDate}">data</p> da
-                        <a th:href="@{/search/{id}(id=${article.user.id})}" class="text-muted">
-                            <span th:text="${article.user.username}">Autore<span />
-                        </a>
-
-                    </div>
+                    <a href="#" class="text-secondary pointer" onclick="goBack()">Torna indietro</a>
                 </div>
-            </div>
 
-            <hr>
-            <p th:text="${article.body}"></p>
-
-
-            <div class="text-center">
-                <a href="#" class="text-secondary pointer" onclick="goBack()">Torna indietro</a>
-            </div>
-
-            <div class="d-flex justify-content-between">
-                <form th:action="@{/articles/accept(action='accept', articleId=${article.id})}" method="POST">
-                    <button class="btn btn-success m-2" type="submit">
-                        Accetta
-                    </button>
-                </form>
-                <form th:action="@{/articles/accept(action='reject', articleId=${article.id})}" method="POST">
-                    <button class="btn btn-danger m-2" type="submit">
-                        Rifiuta
-                    </button>
-                </form>
-            </div>
+                <div class="d-flex justify-content-between">
+                    <form th:action="@{/articles/accept(action='accept', articleId=${article.id})}" method="POST">
+                        <button class="btn btn-success m-2" type="submit">
+                            Accetta
+                        </button>
+                    </form>
+                    <form th:action="@{/articles/accept(action='reject', articleId=${article.id})}" method="POST">
+                        <button class="btn btn-danger m-2" type="submit">
+                            Rifiuta
+                        </button>
+                    </form>
+                </div>
 
         </section>
     </article>
