@@ -7,15 +7,18 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
 public class CustomUserDetails implements UserDetails {
     private Long id;
-    private String username;
+    private String firstname;
+    private String lastname;
     private String email;
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
@@ -54,6 +57,8 @@ public class CustomUserDetails implements UserDetails {
     public String getUsername() {
         return email;
     }
+
+
     public Long getId() {
         return id;
     }
@@ -65,6 +70,6 @@ public class CustomUserDetails implements UserDetails {
 
 
     public String getFullname() {
-        return username;
+        return firstname + " " + lastname;
     }
 }

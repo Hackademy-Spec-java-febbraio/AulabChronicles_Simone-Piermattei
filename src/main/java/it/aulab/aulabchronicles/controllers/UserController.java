@@ -74,7 +74,7 @@ public class UserController {
 
         viewModel.addAttribute("articles", lastThreeArticles);
 
-        return "home";
+        return "/home";
     }
 
     // * Rotta per la Registrazione

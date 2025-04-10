@@ -34,18 +34,24 @@ public class SecurityConfig {
                                 .csrf(csrf -> csrf.disable())
                                 .authorizeHttpRequests(
                                                 (authorize) -> authorize
+                                                                // PRIMA: Regole più specifiche per risorse statiche
+                                                                // pubbliche
+                                                                .requestMatchers(
+                                                                                "/css/**",
+                                                                                "/js/**",
+                                                                                "/images/**",
+                                                                                "/webjars/**"
+                                                                ).permitAll()
                                                                 .requestMatchers(
                                                                                 "/register/**",
                                                                                 "/register",
                                                                                 "/",
                                                                                 "/articles",
-                                                                                "/",
-                                                                                "/images/**",
                                                                                 "/articles/detail/**",
                                                                                 "/categories/search/{id}",
                                                                                 "/search/{id}",
-                                                                                "/articles/search")
-                                                                .permitAll()
+                                                                                "/articles/search"
+                                                                ).permitAll()
                                                                 .requestMatchers(
                                                                                 "/admin/**",
                                                                                 "/admin/dashboard",
@@ -55,18 +61,19 @@ public class SecurityConfig {
                                                                                 "/categories/update/{id}")
                                                                 .hasRole("ADMIN")
                                                                 .requestMatchers(
-                                                                                "/rervisor/dashboard",
+                                                                                "/revisor/dashboard",
                                                                                 "revisor/detail/{id}",
                                                                                 "/accept")
                                                                 .hasRole("REVISOR")
                                                                 .requestMatchers(
-                                                                        "/writer/dashboard",
-                                                                        "/articles/create",
-                                                                        "/articles/edit/{id}",
-                                                                        "/articles/delete/{id}",
-                                                                        "/articles/update/{id}")
+                                                                                "/writer/dashboard",
+                                                                                "/articles/create",
+                                                                                "/articles/edit/{id}",
+                                                                                "/articles/delete/{id}",
+                                                                                "/articles/update/{id}")
                                                                 .hasRole("WRITER")
-                                                                .anyRequest().authenticated())
+                                                                .anyRequest().authenticated()
+                                )
                                 .formLogin(form -> form.loginPage("/login")
                                                 .loginProcessingUrl("/login")
                                                 .defaultSuccessUrl("/")

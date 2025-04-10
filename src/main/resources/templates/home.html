@@ -25,7 +25,7 @@
         <p th:text="${errorMessage}"></p>
     </div>
 
-    <article class="container-fluid">
+    <article class="container-xl">
         <section class="row ms-5 vh-100 align-items-center">
             <div class="col-10">
                 <h1 class="mb-5">Welcome to <span class="display-4 fw-bold d-block">Aulab Chronicles</span></h1>
@@ -72,6 +72,7 @@
 
     <head th:insert="~{index::footer}"></head>
     <script th:replace="~{index::bootstrapScript}"></script>
+    <script th:replace="~{index :: customScript}"></script>
 </body>
 
 </html>

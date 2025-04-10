@@ -1,5 +1,5 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en" >
 
 <head th:insert="~{index::head}"></head>
 
@@ -8,7 +8,7 @@
     <div th:insert="~{index::navbar}"></div>
 
 
-    <article class="container my-5">
+    <article class="container my-5 vh-100">
         <section class="row">
             <div class="col-md-6 offset-md-3">
                 <div th:if="${param.error}">
@@ -48,6 +48,8 @@
 
     <div th:insert="~{index::footer}"></div>
     <script th:replace="~{index::bootstrapScript}"></script>
+    <script th:replace="~{index::fontawesomeScript}"></script>
+    <script th:replace="~{index :: customScript}"></script>
 
 </body>
 

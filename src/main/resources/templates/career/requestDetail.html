@@ -21,7 +21,7 @@
 
 
     <article class="container my-5">
-        <section class="row justify-content-center">
+        <section class="row justify-content-center border border-info border-3 p-5 rounded-5">
             <div class="col-12 col-md-8 d-flex flex-column">
                 <div class="text-center">
                     <h2 th:text="${request.user.username}">Nome utente</h2>
@@ -50,6 +50,9 @@
 
     <div th:insert="~{index::footer}"></div>
     <script th:replace="~{index::bootstrapScript}"></script>
+    <script th:replace="~{index::fontawesomeScript}"></script>
+    <script th:replace="~{index :: customScript}"></script>
+    
 </body>
 
 </html>

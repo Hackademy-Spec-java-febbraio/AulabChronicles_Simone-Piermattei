@@ -49,8 +49,9 @@ public class UserServiceImpl implements UserService {
     public void saveUser(UserDto userDto, RedirectAttributes redirectAttributes, HttpServletRequest request,
             HttpServletResponse response) {
 User user = new User();
-user.setUsername(userDto.getFirstName() + "" + userDto.getLastName());
-user.setEmail(userDto.getEmail());
+user.setFirstname(userDto.getFirstname());
+user.setLastname(userDto.getLastname());
+user.setUsername(userDto.getFirstname() + userDto.getLastname());user.setEmail(userDto.getEmail());
 user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
 Role role = rolesRepository.findByName("ROLE_USER");

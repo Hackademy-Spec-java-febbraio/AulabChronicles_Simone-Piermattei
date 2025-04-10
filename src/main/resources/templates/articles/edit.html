@@ -97,8 +97,7 @@
 
                     <!-- Input per caricare NUOVE immagini -->
                     <div class="mb-3">
-                        <label for="imageUpload" class="form-label">Carica nuova/e immagine/i (sostituirà quelle
-                            esistenti)</label> <!-- Cambiato for e id -->
+                        <label for="imageUpload" class="form-label">Carica nuova/e immagine/i </label> <!-- Cambiato for e id -->
                         <input type="file" class="form-control" name="file" id="imageUpload" multiple="multiple">
                         <!-- Cambiato id -->
                     </div>
@@ -116,6 +115,8 @@
 
     <div th:insert="~{index::footer}"></div>
     <script th:replace="~{index::bootstrapScript}"></script>
+    <script th:replace="~{index::fontawesomeScript}"></script>
+    <script th:replace="~{index :: customScript}"></script>
 
 </body>
 

@@ -24,16 +24,16 @@
                         <form method="post" role="form" th:action="@{/register/save}" th:object="${user}">
                             <div class="form-group mb-3">
                                 <label class="form-label">First Name</label>
-                                <input class="form-control" id="firstName" name="firstName"
-                                    placeholder="Enter first name" th:field="*{firstName}" type="text" />
-                                <p th:errors="*{firstName}" class="text-danger"
-                                    th:if="${#fields.hasErrors('firstName')}"></p>
+                                <input class="form-control" id="firstName" name="firstname"
+                                    placeholder="Enter first name" th:field="*{firstname}" type="text" />
+                                <p th:errors="*{firstname}" class="text-danger"
+                                    th:if="${#fields.hasErrors('firstname')}"></p>
                             </div>
                             <div class="form-group mb-3">
                                 <label class="form-label">Last Name</label>
-                                <input class="form-control" id="lastName" name="lastName" placeholder="Enter last name"
-                                    th:field="*{lastName}" type="text" />
-                                <p th:errors="*{lastName}" class="text-danger" th:if="${#fields.hasErrors('lastName')}">
+                                <input class="form-control" id="lastname" name="lastname" placeholder="Enter last name"
+                                    th:field="*{lastname}" type="text" />
+                                <p th:errors="*{lastname}" class="text-danger" th:if="${#fields.hasErrors('lastname')}">
                                 </p>
                             </div>
                             <div class="form-group mb-3">
@@ -62,6 +62,8 @@
 
     <div th:insert="~{index::footer}"></div>
     <script th:replace="~{index::bootstrapScript}"></script>
+    <script th:replace="~{index::fontawesomeScript}"></script>
+    <script th:replace="~{index :: customScript}"></script>
 
 </body>
 

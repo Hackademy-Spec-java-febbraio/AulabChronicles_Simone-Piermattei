@@ -1,0 +1,5 @@
+html body{
+    background-color: rgb(204, 199, 191) !important;
+    min-height: auto !important; /* O unset !important */
+    height: auto !important;
+}
