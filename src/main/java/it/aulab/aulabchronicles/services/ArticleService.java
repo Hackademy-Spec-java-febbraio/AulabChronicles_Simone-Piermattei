@@ -9,6 +9,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -28,6 +30,8 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class ArticleService implements CrudService<ArticleDto, Article, Long> {
+
+    private static final Logger logger = LoggerFactory.getLogger(ArticleService.class);
 
     @Autowired
     private UserRepository userRepository;
@@ -103,6 +107,7 @@ public class ArticleService implements CrudService<ArticleDto, Article, Long> {
         existingArticle.setSubtitle(updatedArticleData.getSubtitle());
         existingArticle.setBody(updatedArticleData.getBody());
         existingArticle.setCategory(updatedArticleData.getCategory());
+        existingArticle.setPublishDate(updatedArticleData.getPublishDate());
         // Non impostare le immagini qui, verranno gestite separatamente
         // Non impostare isAccepted qui, verrà calcolato dopo
 
@@ -173,65 +178,44 @@ public class ArticleService implements CrudService<ArticleDto, Article, Long> {
         return modelMapper.map(savedArticle, ArticleDto.class);
     }
 
-    @Override
-    @Transactional // Anche la delete dovrebbe essere transazionale
-    public void delete(Long key) {
-        Article article = articleRepository.findById(key)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Article id=" + key + " not found for deletion"));
 
-        // Prima di eliminare l'articolo, elimina le immagini associate (cloud + DB)
-        if (article.getImages() != null && !article.getImages().isEmpty()) {
-            // Crea una copia della lista per evitare ConcurrentModificationException se
-            // deleteImage modifica la lista originale tramite cascade/JPA.
-            List<Image> imagesToDelete = new ArrayList<>(article.getImages());
-            for (Image image : imagesToDelete) {
-                try {
-                    // Assumiamo che deleteImage gestisca sia cloud che DB
-                    imageService.deleteImage(image.getPath());
-                } catch (IOException e) {
-                    // Logga l'errore ma continua a provare a eliminare l'articolo
-                    System.err.println("Errore durante l'eliminazione dell'immagine " + image.getPath()
-                            + " per l'articolo " + key + ": " + e.getMessage());
-                    // Potresti voler accumulare errori o avere una strategia diversa
-                }
+    @Override
+    @Transactional // Usa l'annotazione di Spring
+    public void delete(Long key) {
+        // 1. Trova l'articolo o lancia un'eccezione se non esiste
+        Article article = articleRepository.findById(key)
+                .orElseThrow(
+                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Article id=" + key + " not found"));
+
+        // 2. Ottieni una copia della lista di immagini
+        List<Image> imagesToDelete = new ArrayList<>(article.getImages());
+
+        // 3. Elimina le immagini associate
+        for (Image image : imagesToDelete) {
+            try {
+                imageService.deleteImage(image.getPath()); // Questa chiamata ora elimina dal DB e dal cloud
+            } catch (IOException e) {
+                // Logga l'errore usando il logger
+                logger.error("Errore IO durante l'eliminazione dell'immagine con path: {} per Article ID: {}",
+                        image.getPath(), key, e);
+                // Rilancia l'eccezione per far fallire la transazione e segnalare l'errore
+                throw new RuntimeException("Impossibile eliminare l'immagine (IO): " + image.getPath() + " per articolo " + key, e);
+            } catch (Exception e) { // Cattura altre eccezioni, inclusa RuntimeException da ImageService
+                // Logga l'errore usando il logger
+                logger.error("Errore generico durante l'eliminazione dell'immagine con path: {} per Article ID: {}",
+                        image.getPath(), key, e);
+                // Rilancia l'eccezione per far fallire la transazione e segnalare l'errore
+                throw new RuntimeException("Errore generico durante l'eliminazione dell'immagine: " + image.getPath() + " per articolo " + key, e);
             }
         }
 
-        // Ora elimina l'articolo stesso
-        // Le relazioni (es. con Image) dovrebbero essere gestite da JPA (es. cascade)
-        // o essere state pulite manualmente (come fatto sopra per le immagini).
+        // 4. Se l'eliminazione di tutte le immagini è andata a buon fine, elimina l'articolo.
+        // Se un'eccezione è stata lanciata nel loop, questa riga non verrà raggiunta
+        // e la transazione verrà rollata indietro.
+        logger.info("Eliminazione articolo con ID: {}", key);
         articleRepository.delete(article);
     }
 
-    // ... (metodi searchByCategory, searchByAuthor, setIsAccepted, search rimangono
-    // invariati) ...
-
-    // --- Metodo Ausiliario (Opzionale) per Confronto Contenuto ---
-    // Potresti creare un metodo privato per confrontare i campi rilevanti
-    // tra due oggetti Article per determinare `contentChanged` in modo più pulito.
-    private boolean hasContentChanged(Article original, Article updatedData) {
-        if (!original.getTitle().equals(updatedData.getTitle()))
-            return true;
-        if (!original.getSubtitle().equals(updatedData.getSubtitle()))
-            return true;
-        if (!original.getBody().equals(updatedData.getBody()))
-            return true;
-
-        // Confronto Categoria (gestendo i null)
-        Category originalCat = original.getCategory();
-        Category updatedCat = updatedData.getCategory();
-        if (originalCat == null && updatedCat != null)
-            return true;
-        if (originalCat != null && updatedCat == null)
-            return true;
-        if (originalCat != null && updatedCat != null && !originalCat.getId().equals(updatedCat.getId()))
-            return true; // Confronta ID se non null
-
-        // Aggiungi altri campi se necessario (es. publishDate se modificabile)
-
-        return false;
-    }
 
     public List<ArticleDto> searchByCategory(Category category) {
         List<ArticleDto> dtos = new ArrayList<ArticleDto>();

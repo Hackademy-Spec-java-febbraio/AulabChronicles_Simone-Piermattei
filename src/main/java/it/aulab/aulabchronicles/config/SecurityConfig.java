@@ -59,6 +59,13 @@ public class SecurityConfig {
                                                                                 "revisor/detail/{id}",
                                                                                 "/accept")
                                                                 .hasRole("REVISOR")
+                                                                .requestMatchers(
+                                                                        "/writer/dashboard",
+                                                                        "/articles/create",
+                                                                        "/articles/edit/{id}",
+                                                                        "/articles/delete/{id}",
+                                                                        "/articles/update/{id}")
+                                                                .hasRole("WRITER")
                                                                 .anyRequest().authenticated())
                                 .formLogin(form -> form.loginPage("/login")
                                                 .loginProcessingUrl("/login")

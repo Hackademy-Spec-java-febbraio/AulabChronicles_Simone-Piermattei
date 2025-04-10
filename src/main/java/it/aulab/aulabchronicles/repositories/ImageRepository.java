@@ -9,7 +9,14 @@ import it.aulab.aulabchronicles.models.Image;
 
 public interface ImageRepository extends JpaRepository<Image, Long> {
 
-    @Modifying
+    /**
+     * Elimina le immagini dal database basandosi sul loro path (URL).
+     * Utilizza una query nativa per l'eliminazione diretta.
+     *
+     * @param path L'URL (path) dell'immagine da eliminare.
+     * @return Il numero di record immagine eliminati dal database.
+     */
+    @Modifying // Necessario per query di modifica (INSERT, UPDATE, DELETE)
     @Query(value = "DELETE FROM images WHERE path = :path", nativeQuery = true)
-    void deleteByPath(@Param("path") String path);
+    int deleteByPath(@Param("path") String path); // Modificato per restituire long
 }

@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.repository.query.Param;
@@ -46,6 +48,9 @@ public class ArticleController {
 
     @Autowired
     private ModelMapper modelMapper;
+
+
+    private static final Logger log = LoggerFactory.getLogger(ArticleController.class);
 
     // * Rotta index degli articoli
     @GetMapping
@@ -111,6 +116,21 @@ public class ArticleController {
     @GetMapping("/edit/{id}")
     public String editArticle(@PathVariable("id") Long id, Model viewModel) {
         viewModel.addAttribute("title", "Modifica articolo");
+
+        ArticleDto articleDto = articleService.read(id); // Ottieni il DTO
+
+        // --- DEBUG LOG ---
+        if (articleDto != null) {
+            log.info("--- DEBUG EDIT ARTICLE ---");
+            log.info("ID Articolo richiesto: {}", id);
+            log.info("DTO Caricato: {}", articleDto); // Stampa tutto il DTO (assicurati che toString() sia utile o usa i getter)
+            log.info("PublishDate nel DTO prima della view: {}", articleDto.getPublishDate()); // <-- QUESTO È CRUCIALE
+            log.info("--------------------------");
+        } else {
+            log.error("Errore: Impossibile caricare ArticleDto per ID: {}", id);
+        }
+        // -----------------
+
         viewModel.addAttribute("article", articleService.read(id));
         viewModel.addAttribute("categories", categoryService.readAll());
         return "articles/edit";
@@ -189,6 +209,16 @@ public class ArticleController {
         redirectAttributes.addFlashAttribute("successMessage", "Articolo modificato con successo!");
         return "redirect:/articles";
     }
+
+    //  * Rotta per la cancellazione di un articolo
+
+    @GetMapping("/delete/{id}")
+    public String articleDelete(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+        articleService.delete(id);
+        redirectAttributes.addFlashAttribute("successMessage", "Articolo cancellato con successo!");
+        return "redirect:/writer/dashboard";
+    }
+    
     
 
 }

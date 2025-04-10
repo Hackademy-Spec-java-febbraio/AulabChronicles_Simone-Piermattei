@@ -19,8 +19,8 @@
     </article>
 
     <article class="container">
-        <section class="row">
-            <div class="col-12 my-5">
+        <section class="row justify-content-center">
+            <div class="col-8 my-5">
 
                 <form th:action="@{/articles/update/{id}(id=${article.id})}" method="POST" th:object="${article}"
                     enctype="multipart/form-data">
@@ -44,8 +44,10 @@
 
                     <div class="mb-3">
                         <label for="body" class="form-label">Articolo:</label>
-                        <input type="text" class="form-control" id="body" th:field="*{body}"
-                            placeholder="Inserisci un testo...">
+                        <!-- Sostituito input con textarea -->
+                        <textarea class="form-control" id="body" th:field="*{body}" rows="5"
+                            placeholder="Inserisci il testo dell'articolo..."></textarea>
+                        <!-- Aggiunto rows="5" per l'altezza iniziale -->
                         <p th:errors="*{body}" class="text-danger" th:if="${#fields.hasErrors('body')}"></p>
                     </div>
 
@@ -71,19 +73,27 @@
                     </div>
 
                     <!-- Controlla se la lista 'images' non è null E non è vuota -->
-                    <div class="mb-3 d-flex flex-column"
-                        th:if="${article.images != null and !#lists.isEmpty(article.images)}">
-                        <label class="form-label">Immagine attuale</label> <!-- Rimosso for="image" -->
-                        <!-- Mostra la prima immagine della lista -->
-                        <img th:src="${article.images[0].path}" alt="Immagine attuale"
-                            class="rounded mx-auto d-block img-thumbnail" style="max-width: 300px; height: auto;">
-                        <!-- Rimosso id="image", modificato alt, aggiunto stile -->
+                    <div class="mb-3" th:if="${article.images != null and !#lists.isEmpty(article.images)}">
+                        <label class="form-label d-block mb-2">Immagini attuali</label>
+                        <!-- Modificato label e aggiunto stile -->
+                        <div class="d-flex flex-wrap gap-2"> <!-- Contenitore per le immagini con flexbox -->
+                            <!-- Itera su ogni immagine nella lista article.images -->
+                            <!-- 'image' è la variabile che rappresenta l'oggetto immagine corrente nel ciclo -->
+                            <!-- 'iterStat' fornisce informazioni sullo stato dell'iterazione (opzionale, ma utile per alt text) -->
+                            <div th:each="image, iterStat : ${article.images}">
+                                <img th:src="${image.path}" th:alt="'Immagine articolo ' + ${iterStat.count}"
+                                    class="img-thumbnail" style="max-width: 150px; height: auto;">
+                                <!-- Stile per le miniature -->
+                            </div>
+                        </div>
                     </div>
+
                     <!-- Mostra questo blocco se la lista è null O vuota -->
                     <div th:unless="${article.images != null and !#lists.isEmpty(article.images)}">
-                        <label class="form-label">Immagine attuale</label> <!-- Rimosso for="image" -->
+                        <label class="form-label">Immagini attuali</label> <!-- Mantenuto label per coerenza -->
                         <p>Nessuna immagine presente</p>
                     </div>
+
 
                     <!-- Input per caricare NUOVE immagini -->
                     <div class="mb-3">

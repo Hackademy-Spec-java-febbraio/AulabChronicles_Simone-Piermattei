@@ -26,20 +26,23 @@
                 <div id="carouselExample" class="carousel slide">
                     <div class="carousel-inner">
 
-                        <div class="carousel-inner">
-                            <!-- Itera sulla lista di immagini, se non è vuota -->
-                            <th:block th:if="${!article.images.isEmpty()}">
-                                <!-- Per ogni immagine nella lista 'article.images' -->
-                                <div th:each="image, iterStat : ${article.images}"
-                                    th:classappend="${iterStat.index == 0} ? 'active' : ''" class="carousel-item">
-                                    <!-- Mostra l'immagine corrente dell'iterazione -->
-                                    <img th:src="${image.path}" class="d-block w-100" alt="Article image">
-                                </div>
-                            </th:block>
-                            <!-- Se la lista di immagini è vuota, mostra un'immagine di default -->
-                            <div th:if="${article.images.isEmpty()}" class="carousel-item active">
-                                <img th:src="@{/images/default.jpg}" class="d-block w-100" alt="Default Image">
+
+
+                        <!-- Itera sulla lista di immagini, se non è vuota -->
+                        <th:block th:if="${!article.images.isEmpty()}">
+
+                            <!-- Per ogni immagine nella lista 'article.images' -->
+                            <div th:each="image, iterStat : ${article.images}"
+                                th:classappend="${iterStat.index == 0} ? 'active' : ''" class="carousel-item">
+
+                                <!-- Mostra l'immagine corrente dell'iterazione -->
+                                <img th:src="${image.path}" class="d-block w-100" alt="Article image">
                             </div>
+                        </th:block>
+
+                        <!-- Se la lista di immagini è vuota, mostra un'immagine di default -->
+                        <div th:if="${article.images.isEmpty()}" class="carousel-item active">
+                            <img th:src="@{/images/default.jpg}" class="d-block w-100" alt="Default Image">
                         </div>
 
 

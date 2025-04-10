@@ -35,7 +35,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-                    <li sec:authorize="isAuthenticated" class="nav-item">
+                    <li sec:authorize="isAuthenticated && hasRole('ROLE_WRITER')" class="nav-item">
                         <a class="nav-link active" aria-current="page" th:href="@{/articles/create}">Crea Articolo</a>
                     </li>
 
@@ -60,8 +60,12 @@
                             <a href="/revisor/dashboard" class="nav-link">Dashboard Revisor</a>
                             <div class="mt-1" th:if="${articleToBeRevised > 0}"></div>
                             <i class="fas fa-bell fa-1 pt-2"></i>
-                            <span class="badge rounded-pill bg-danger text-white" th:text="${articleToBeRevised}"></span>
+                            <span class="badge rounded-pill bg-danger text-white"
+                                th:text="${articleToBeRevised}"></span>
                         </div>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasRole('ROLE_WRITER')">
+                        <a class="nav-link" href="/wrirter/dashboard">Dashboard Writer</a>
                     </li>
                     <!-- * -->
 
@@ -84,12 +88,14 @@
                 <div class="mx-5" th:if="${#authorization.expression('isAuthenticated()')}">
                     <span th:text="'Benvenuto: ' + ${#authentication.principal.fullname} + ' - '"></span>
                     <span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" th:text="'ADMIN'"></span>
-                    <span th:unless="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" th:text="${#authentication.principal.authorities[0].authority.replace('ROLE_', '')}"></span>
+                    <span th:unless="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"
+                        th:text="${#authentication.principal.authorities[0].authority.replace('ROLE_', '')}"></span>
                 </div>
-                
+
 
                 <form class="d-flex" role="search" th:action="@{/articles/search}" method="GET">
-                    <input class="form-control me-2" type="search" placeholder="Cerca articoli..." aria-label="Cerca articoli" name="keyword">
+                    <input class="form-control me-2" type="search" placeholder="Cerca articoli..."
+                        aria-label="Cerca articoli" name="keyword">
                     <button class="btn btn-outline-success" type="submit">Cerca</button>
                 </form>
             </div>
