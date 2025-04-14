@@ -15,11 +15,11 @@ INSERT INTO users_roles (user_id, role_id) values
 
 
 INSERT INTO categories (name) values 
-('politica'),
-('economia'),
-('food&drink'),
-('business'),
-('sport'),
-('intrattenimento'),
-('tech');
+('Politica'),
+('Economia'),
+('Food&Drink'),
+('Business'),
+('Sport'),
+('Intrattenimento'),
+('Tech');
 

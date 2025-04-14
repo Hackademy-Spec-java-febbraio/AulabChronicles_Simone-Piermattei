@@ -10,9 +10,9 @@
     <article class="container">
         <section class="row">
             <div class="col-md-8 offset-md-2">
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="text-center">Registration</h2>
+                <div class="card rounded-5">
+                    <div class="card-header rounded-top-5 b-sec">
+                        <h2 class="text-center t-link mt-1">Registrazione</h2>
                     </div>
                     <div th:if="${param.success}">
                         <div class="alert alert-success">
@@ -23,35 +23,35 @@
                     <div class="card-body">
                         <form method="post" role="form" th:action="@{/register/save}" th:object="${user}">
                             <div class="form-group mb-3">
-                                <label class="form-label">First Name</label>
-                                <input class="form-control" id="firstName" name="firstname"
-                                    placeholder="Enter first name" th:field="*{firstname}" type="text" />
+                                <label class="form-label">Nome</label>
+                                <input class="form-control rounded-5" id="firstName" name="firstname"
+                                    placeholder="Scrivi il tuo nome..." th:field="*{firstname}" type="text" />
                                 <p th:errors="*{firstname}" class="text-danger"
                                     th:if="${#fields.hasErrors('firstname')}"></p>
                             </div>
                             <div class="form-group mb-3">
-                                <label class="form-label">Last Name</label>
-                                <input class="form-control" id="lastname" name="lastname" placeholder="Enter last name"
+                                <label class="form-label">Cognome</label>
+                                <input class="form-control rounded-5" id="lastname" name="lastname" placeholder="Scrivi il tuo cognome..."
                                     th:field="*{lastname}" type="text" />
                                 <p th:errors="*{lastname}" class="text-danger" th:if="${#fields.hasErrors('lastname')}">
                                 </p>
                             </div>
                             <div class="form-group mb-3">
                                 <label class="form-label">Email</label>
-                                <input class="form-control" id="email" name="email" placeholder="Enter email"
+                                <input class="form-control rounded-5" id="email" name="email" placeholder="Scrivi la tua email..."
                                     th:field="*{email}" type="email" />
                                 <p th:errors="*{email}" class="text-danger" th:if="${#fields.hasErrors('email')}"></p>
                             </div>
                             <div class="form-group mb-3">
                                 <label class="form-label">Password</label>
-                                <input class="form-control" id="password" name="password" placeholder="Enter password"
+                                <input class="form-control rounded-5" id="password" name="password" placeholder="Inserisci Password..."
                                     th:field="*{password}" type="password">
                                 <p th:errors="*{password}" class="text-danger" th:if="${#fields.hasErrors('password')}">
                                 </p>
                             </div>
-                            <div class="form-group">
-                                <button class="btn btn-primary" type="submit">Register</button>
-                                <span>Already registered? <a href="/login">Login</a></span>
+                            <div class="form-group row justify-content-around align-items-center mt-3 mb-1">
+                                <span class="col-5">Sei giá registrato? <a href="/login">Login</a></span>
+                                <button class="btn rounded-5 b-link t-main col-2" type="submit">Registrati</button>
                             </div>
                         </form>
                     </div>

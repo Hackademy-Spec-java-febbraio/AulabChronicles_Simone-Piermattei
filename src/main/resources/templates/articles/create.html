@@ -19,7 +19,8 @@
 
                 <div class="col-12 my-5">
 
-                    <form th:action="@{/articles/save}" method="POST" th:object="${article}" enctype="multipart/form-data">
+                    <form th:action="@{/articles/save}" method="POST" th:object="${article}"
+                        enctype="multipart/form-data">
 
                         <section class="row mb-3">
                             <div class="col">
@@ -39,8 +40,8 @@
 
                         <div class="mb-3">
                             <label for="body" class="form-label">Articolo:</label>
-                            <input type="text" class="form-control" id="body" th:field="*{body}"
-                                placeholder="Inserisci un testo...">
+                            <textarea name="body" class="form-control" th:field="*{body}" rows="5"
+                                id=""></textarea>
                             <p th:errors="*{body}" class="text-danger" th:if="${#fields.hasErrors('body')}"></p>
                         </div>
 
@@ -57,9 +58,10 @@
                         <div class="mb-3">
                             <label for="category" class="form-label">Category</label>
                             <select type="category" class="form-select" th:field="*{category}">
-                                <option th:each="category:${categories}" th:value="${category.id}" th:text="${category.name}"></option>
-                                <p th:errors="*{category}" class="text-danger"
-                                    th:if="${#fields.hasErrors('category')}"></p>
+                                <option th:each="category:${categories}" th:value="${category.id}"
+                                    th:text="${category.name}"></option>
+                                <p th:errors="*{category}" class="text-danger" th:if="${#fields.hasErrors('category')}">
+                                </p>
                             </select>
                         </div>
 

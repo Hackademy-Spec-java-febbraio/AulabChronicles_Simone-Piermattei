@@ -1,5 +1,156 @@
-html body{
-    background-color: rgb(204, 199, 191) !important;
-    min-height: auto !important; /* O unset !important */
+/* BASE */
+
+:root {
+
+    --main: #F5F5F5;
+    --link: #0056B3;
+    --sec: #c7ccd6;
+    --text: #1A1A1A;
+    --details: #8c8e92;
+    --acc: #D62828;
+}
+
+
+
+*{
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Lato", sans-serif;
+    font-weight: 900;
+    font-style: normal;
+}
+
+.t-link{
+    color: var(--link);
+    text-decoration: none;
+}
+
+.t-acc{
+    color: var(--acc);
+    text-decoration: none;
+}
+
+.t-main{
+    color: var(--main);
+    text-decoration: none;
+}
+
+.b-sec{
+    background-color: var(--sec);
+}
+
+.b-main{
+    background-color: var(--main);
+}
+
+.b-details{
+    background-color: var(--details);
+}
+
+.b-acc{
+    background-color: var(--acc);
+}
+
+.b-link{
+    background-color: var(--link);
+}
+
+
+
+body {
+    background-color: var(--main);
+    min-height: auto !important;
+    /* O unset !important */
     height: auto !important;
+}
+
+/* FINE BASE */
+
+
+
+
+
+
+
+.navbar {
+
+    background-color: var(--sec);
+    border-bottom: 2px solid var(--details);
+    box-shadow: 0px 2px 20px 10px var(--details);
+    padding-block: 15px;
+    z-index: 5;
+    transition: 1s;
+    transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+
+.nav-link1{
+    transition: 0.3s;
+    margin-inline: 20px;
+
+}
+
+.nav-link1:hover{
+    scale: 1.1;
+    background-color: var(--text);
+    color: var(--sec);
+    border-radius: 20px;
+}
+
+
+.log-link{
+    transition: 0.3s;
+
+}
+
+.log-link:hover{
+    scale: 1.1;
+    background-color: var(--link);
+    color: var(--sec);
+    border-radius: 20px;
+}
+
+
+
+
+
+.my-sticky-top {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+}
+
+
+.card{
+    margin-block: 100px;
+    box-shadow: 4px 4px 20px 8px var(--details);
+
+}
+
+#container-footer{
+    box-shadow: 4px 4px 20px 8px var(--details);
+
+}
+
+.logo-aulab{
+    width: 200px;
+    filter: brightness(0) saturate(100%) invert(5%) sepia(7%) saturate(160%) hue-rotate(314deg) brightness(88%) contrast(87%);
+    transition: 0.5s;
+}
+
+.logo-aulab:hover{
+    scale: 1.2;
+    filter: none;
 }

@@ -8,7 +8,7 @@
     <div th:insert="~{index::navbar}"></div>
 
 
-    <article class="container my-5 vh-100">
+    <article class="container my-5">
         <section class="row">
             <div class="col-md-6 offset-md-3">
                 <div th:if="${param.error}">
@@ -17,27 +17,27 @@
                 <div th:if="${param.logout}">
                     <div class="alert alert-success">You have been logged out.</div>
                 </div>
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="text-center">Login Form</h2>
+                <div class="card rounded-5">
+                    <div class="card-header pt-3 b-sec rounded-top-5 t-link">
+                        <h2 class="text-center">Login</h2>
                     </div>
                     <div class="card-body">
                         <form method="post" th:action="@{/login}" class="form-horizontal">
                             <div class="form-group mb-3">
                                 <label class="control-label">Email</label>
-                                <input type="text" class="form-control" id="username" name="username"
+                                <input type="text" class="form-control rounded-5" id="username" name="username"
                                     placeholder="Enter email address" />
                             </div>
                             <div class="form-group mb-3">
                                 <label class="control-label">Password</label>
-                                <input type="password" class="form-control" id="password" name="password"
+                                <input type="password" class="form-control rounded-5" id="password" name="password"
                                     placeholder="Enter password" />
                             </div>
-                            <div class="form-group mb-3">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                            <div class="form-group my-4 d-flex justify-content-evenly align-items-center">
                                 <span> Not registered?
                                     <a th:href="@{/register}">Register/Signup here</a>
                                 </span>
+                                <button type="submit" class="btn rounded-5 t-main b-link me-4">Submit</button>
                             </div>
                         </form>
                     </div>
